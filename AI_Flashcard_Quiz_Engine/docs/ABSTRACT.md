@@ -1,0 +1,5 @@
+# Abstract
+
+**AI Flashcard and Quiz Engine from Lecture Notes** is a web-based intelligent study assistant developed using Python, Flask, SQLite, HTML, CSS, JavaScript, and Bootstrap. The system allows students to paste lecture notes or upload TXT, PDF, and DOCX files. It extracts readable text, cleans it, identifies important sentences and keywords, detects definitions, and generates flashcards, multiple-choice questions, and true/false questions directly related to the provided notes.
+
+The application includes an offline local NLP engine based on sentence tokenization, keyword-frequency analysis, definition-pattern detection, sentence ranking, and rule-based question generation. It also supports an optional AI mode using an OpenAI-compatible API. Students can flip and shuffle flashcards, attempt quizzes, receive automatic scores, review correct and incorrect answers, and read explanations. All study sessions and quiz attempts are stored in an SQLite database. The system reduces manual revision effort and helps students convert lengthy lecture material into interactive learning resources.

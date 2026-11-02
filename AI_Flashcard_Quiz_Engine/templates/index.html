@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero text-white rounded-4 p-5 mb-5">
+  <div class="row align-items-center">
+    <div class="col-lg-7">
+      <h1 class="display-5 fw-bold">AI Flashcard and Quiz Engine</h1>
+      <p class="lead mt-3">
+        Upload or paste your lecture notes and instantly create flashcards,
+        multiple-choice quizzes, true/false questions, scores, and answer explanations.
+      </p>
+      <a href="{{ url_for('generate') }}" class="btn btn-light btn-lg mt-3 fw-semibold">
+        <i class="bi bi-arrow-right-circle me-2"></i>Get Started
+      </a>
+    </div>
+    <div class="col-lg-5 text-center d-none d-lg-block">
+      <i class="bi bi-journal-bookmark-fill hero-icon"></i>
+    </div>
+  </div>
+</section>
+
+<h2 class="h4 fw-bold mb-4">What you can do</h2>
+<div class="row g-4">
+  <div class="col-md-6 col-lg-3">
+    <div class="feature-card h-100">
+      <i class="bi bi-upload feature-icon"></i>
+      <h3 class="h5 fw-bold">Upload Notes</h3>
+      <p class="text-muted">Paste notes or upload TXT, PDF, and DOCX lecture files.</p>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="feature-card h-100">
+      <i class="bi bi-collection-play feature-icon"></i>
+      <h3 class="h5 fw-bold">Generate Flashcards</h3>
+      <p class="text-muted">Create revision cards with flip, shuffle, and navigation controls.</p>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="feature-card h-100">
+      <i class="bi bi-patch-question feature-icon"></i>
+      <h3 class="h5 fw-bold">Take Quizzes</h3>
+      <p class="text-muted">Practice with MCQs and true/false questions at three difficulty levels.</p>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="feature-card h-100">
+      <i class="bi bi-graph-up-arrow feature-icon"></i>
+      <h3 class="h5 fw-bold">Track Progress</h3>
+      <p class="text-muted">View scores, review answers, and revisit previous study sessions.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mt-4">
+  <div class="col-md-6">
+    <div class="info-card h-100">
+      <h3 class="h5 fw-bold"><i class="bi bi-cpu me-2"></i>Works Offline</h3>
+      <p class="text-muted mb-0">The local NLP engine uses sentence analysis, keyword frequency, definition detection, and rule-based question generation. No paid API key is required.</p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="info-card h-100">
+      <h3 class="h5 fw-bold"><i class="bi bi-stars me-2"></i>Optional AI Mode</h3>
+      <p class="text-muted mb-0">Add an OpenAI-compatible API key in a <code>.env</code> file to generate richer AI-based study material. The app still works fully without it.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

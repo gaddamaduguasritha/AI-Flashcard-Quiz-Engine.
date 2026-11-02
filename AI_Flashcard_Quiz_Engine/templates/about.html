@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1 class="h3 fw-bold">About This Project</h1>
+</div>
+<div class="card app-card">
+  <div class="card-body">
+    <p><strong>AI Flashcard and Quiz Engine</strong> is a Flask-based web application that converts lecture notes into interactive study material.</p>
+    <h2 class="h5 fw-bold mt-4">How it works</h2>
+    <ol>
+      <li>The student pastes notes or uploads a TXT, PDF, or DOCX file.</li>
+      <li>The application extracts and cleans the text.</li>
+      <li>It identifies sentences, keywords, definitions, and important facts.</li>
+      <li>It generates flashcards, MCQs, and true/false questions from that content.</li>
+      <li>The student can practice, submit a quiz, view a score, and review explanations.</li>
+      <li>All notes, flashcards, quizzes, and attempts are stored in SQLite.</li>
+    </ol>
+    <h2 class="h5 fw-bold mt-4">Local NLP techniques</h2>
+    <ul>
+      <li>Sentence tokenization using punctuation-aware rules</li>
+      <li>Stop-word filtering and keyword frequency analysis</li>
+      <li>Definition detection using linguistic patterns</li>
+      <li>Sentence ranking based on keyword density and position</li>
+      <li>Rule-based cloze, MCQ, and true/false generation</li>
+    </ul>
+    <h2 class="h5 fw-bold mt-4">Optional AI Mode</h2>
+    <p class="mb-0">The application can optionally use an OpenAI-compatible chat completion API. If no API key is configured, it automatically uses the offline local NLP engine.</p>
+  </div>
+</div>
+{% endblock %}

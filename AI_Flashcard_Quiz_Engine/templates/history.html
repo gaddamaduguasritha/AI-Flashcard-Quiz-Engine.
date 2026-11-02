@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}History & Dashboard{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1 class="h3 fw-bold">History & Dashboard</h1>
+  <p class="text-muted">View your saved lecture notes, generated study material, and quiz attempts.</p>
+</div>
+
+<h2 class="h5 fw-bold mb-3">Study Sessions</h2>
+{% if notes %}
+<div class="table-responsive card app-card mb-5">
+  <table class="table table-hover align-middle mb-0">
+    <thead>
+      <tr><th>Title</th><th>Source</th><th>Flashcards</th><th>Questions</th><th>Created</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for note in notes %}
+        <tr>
+          <td class="fw-semibold">{{ note.title }}</td>
+          <td><span class="badge text-bg-secondary">{{ note.source_type }}</span></td>
+          <td>{{ note.card_count }}</td>
+          <td>{{ note.question_count }}</td>
+          <td>{{ note.created_at[:19].replace('T', ' ') }}</td>
+          <td>
+            <a href="{{ url_for('flashcards', note_id=note.id) }}" class="btn btn-sm btn-primary">Flashcards</a>
+            <a href="{{ url_for('quiz', note_id=note.id) }}" class="btn btn-sm btn-success">Quiz</a>
+            <a href="{{ url_for('note_details', note_id=note.id) }}" class="btn btn-sm btn-outline-secondary">Notes</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="alert alert-info">No study sessions yet. <a href="{{ url_for('generate') }}">Generate your first flashcards and quiz.</a></div>
+{% endif %}
+
+<h2 class="h5 fw-bold mb-3">Recent Quiz Attempts</h2>
+{% if attempts %}
+<div class="table-responsive card app-card">
+  <table class="table table-hover align-middle mb-0">
+    <thead>
+      <tr><th>Note</th><th>Score</th><th>Percentage</th><th>Date</th><th>Result</th></tr>
+    </thead>
+    <tbody>
+      {% for attempt in attempts %}
+        <tr>
+          <td>{{ attempt.title }}</td>
+          <td>{{ attempt.score }}/{{ attempt.total }}</td>
+          <td>{{ attempt.percentage }}%</td>
+          <td>{{ attempt.created_at[:19].replace('T', ' ') }}</td>
+          <td>
+            {% if attempt.percentage >= 70 %}
+              <span class="badge text-bg-success">Good</span>
+            {% elif attempt.percentage >= 40 %}
+              <span class="badge text-bg-warning">Average</span>
+            {% else %}
+              <span class="badge text-bg-danger">Needs Revision</span>
+            {% endif %}
+          </td>
+          <td><a href="{{ url_for('results', attempt_id=attempt.id) }}" class="btn btn-sm btn-outline-primary">Review</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="alert alert-info">No quiz attempts recorded yet.</div>
+{% endif %}
+{% endblock %}

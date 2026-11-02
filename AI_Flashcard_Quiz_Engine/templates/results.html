@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Quiz Results{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1 class="h3 fw-bold">Quiz Results — {{ note.title }}</h1>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-md-3">
+    <div class="stat-card text-center">
+      <p class="stat-label">Score</p>
+      <p class="stat-value">{{ attempt.score }}/{{ attempt.total }}</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card text-center">
+      <p class="stat-label">Percentage</p>
+      <p class="stat-value">{{ attempt.percentage }}%</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card text-center">
+      <p class="stat-label">Correct</p>
+      <p class="stat-value text-success">{{ attempt.score }}</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card text-center">
+      <p class="stat-label">Incorrect</p>
+      <p class="stat-value text-danger">{{ attempt.total - attempt.score }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+  <a href="{{ url_for('quiz', note_id=note.id) }}" class="btn btn-primary">
+    <i class="bi bi-arrow-repeat me-2"></i>Retake Quiz
+  </a>
+  <a href="{{ url_for('flashcards', note_id=note.id) }}" class="btn btn-outline-primary">
+    <i class="bi bi-collection-play me-2"></i>Review Flashcards
+  </a>
+  <a href="{{ url_for('download_results', attempt_id=attempt.id) }}" class="btn btn-outline-secondary">
+    <i class="bi bi-download me-2"></i>Download Results
+  </a>
+  <button class="btn btn-outline-dark" onclick="window.print()">
+    <i class="bi bi-printer me-2"></i>Print
+  </button>
+</div>
+
+<h2 class="h4 fw-bold mb-3">Answer Review</h2>
+{% for item in review %}
+  <div class="card app-card mb-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start">
+        <h3 class="h6 fw-bold">{{ loop.index }}. {{ item.question.question_text }}</h3>
+        {% if item.is_correct %}
+          <span class="badge text-bg-success">Correct</span>
+        {% else %}
+          <span class="badge text-bg-danger">Incorrect</span>
+        {% endif %}
+      </div>
+      <p class="mb-1"><strong>Your answer:</strong> {{ item.selected if item.selected else 'Not answered' }}</p>
+      <p class="mb-1"><strong>Correct answer:</strong> {{ item.question.correct_answer }}</p>
+      <p class="mb-0 text-muted"><strong>Explanation:</strong> {{ item.question.explanation }}</p>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}

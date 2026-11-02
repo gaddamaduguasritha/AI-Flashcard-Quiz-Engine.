@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Generate Study Material{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1 class="h3 fw-bold">Generate Flashcards & Quiz</h1>
+  <p class="text-muted">Paste lecture notes or upload a supported file. Review the extracted text before generating.</p>
+</div>
+
+<div class="card app-card">
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('generate') }}" enctype="multipart/form-data" id="generateForm">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Note title</label>
+          <input type="text" class="form-control" name="title"
+                 value="{{ form.get('title', '') }}" placeholder="Example: Artificial Intelligence Unit 1" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Upload lecture file</label>
+          <input type="file" class="form-control" name="file" accept=".txt,.pdf,.docx">
+          <div class="form-text">Allowed formats: TXT, PDF, DOCX. Maximum size: 10 MB.</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-semibold">Or paste lecture notes</label>
+          <textarea class="form-control" name="notes" rows="10"
+                    placeholder="Paste your lecture notes here...">{{ form.get('notes', '') }}</textarea>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Flashcards</label>
+          <select class="form-select" name="card_count">
+            {% for value in [5, 10, 15, 20] %}
+              <option value="{{ value }}" {% if form.get('card_count', '10')|int == value %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Quiz questions</label>
+          <select class="form-select" name="question_count">
+            {% for value in [5, 10, 15, 20] %}
+              <option value="{{ value }}" {% if form.get('question_count', '10')|int == value %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Difficulty</label>
+          <select class="form-select" name="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Generation mode</label>
+          <select class="form-select" name="mode">
+            <option value="local" selected>Local / Offline NLP</option>
+            <option value="ai">AI Mode (requires API key)</option>
+          </select>
+        </div>
+      </div>
+      <div class="d-flex flex-wrap gap-2 mt-4">
+        <button type="submit" class="btn btn-primary btn-lg" id="generateButton">
+          <i class="bi bi-magic me-2"></i>Generate Study Material
+        </button>
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="text-center my-4 d-none" id="loadingIndicator">
+  <div class="spinner-border text-primary" role="status"></div>
+  <p class="mt-2 mb-0 text-muted">Analyzing notes and generating study material...</p>
+</div>
+{% endblock %}
