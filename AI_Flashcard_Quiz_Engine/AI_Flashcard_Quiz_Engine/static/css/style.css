@@ -1,0 +1,179 @@
+:root {
+  --primary: #4f46e5;
+  --primary-dark: #3730a3;
+  --bg: #f4f6fb;
+  --card-shadow: 0 10px 30px rgba(15, 23, 42, .08);
+}
+
+body {
+  background: var(--bg);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #1f2937;
+}
+
+.app-navbar {
+  background: #ffffff;
+  box-shadow: 0 2px 15px rgba(15, 23, 42, .08);
+}
+
+.app-navbar .nav-link {
+  font-weight: 500;
+  color: #334155;
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link.active {
+  color: var(--primary);
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--primary), #7c3aed);
+  box-shadow: var(--card-shadow);
+}
+
+.hero-icon {
+  font-size: 10rem;
+  opacity: .85;
+}
+
+.feature-card,
+.info-card,
+.app-card,
+.stat-card {
+  background: #fff;
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.feature-card:hover,
+.info-card:hover,
+.app-card:hover {
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  font-size: 2.2rem;
+  color: var(--primary);
+}
+
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.flashcard-stage {
+  perspective: 1200px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.flashcard {
+  width: 100%;
+  height: 320px;
+  cursor: pointer;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .7s;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+}
+
+.flashcard-front {
+  background: #fff;
+  color: #111827;
+}
+
+.flashcard-back {
+  background: linear-gradient(135deg, var(--primary), #7c3aed);
+  color: #fff;
+  transform: rotateY(180deg);
+}
+
+.quiz-option {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: .75rem;
+  padding: .75rem 1rem;
+  margin-bottom: .6rem;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.quiz-option:hover {
+  border-color: var(--primary);
+  background: #eef2ff;
+}
+
+.quiz-option input {
+  pointer-events: none;
+}
+
+.quiz-option.selected {
+  border-color: var(--primary);
+  background: #eef2ff;
+}
+
+.quiz-progress {
+  height: .6rem;
+  border-radius: 1rem;
+}
+
+.stat-label {
+  color: #64748b;
+  font-size: .9rem;
+  margin-bottom: .25rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.note-preview {
+  white-space: pre-wrap;
+  max-height: 500px;
+  overflow-y: auto;
+  background: #f8fafc;
+  border-radius: .75rem;
+  padding: 1rem;
+}
+
+.app-footer {
+  background: #111827;
+  color: #cbd5e1;
+}
+
+@media (max-width: 576px) {
+  .flashcard { height: 380px; }
+  .hero { padding: 2rem !important; }
+  .hero-icon { font-size: 6rem; }
+}
+
+@media print {
+  .app-navbar, .app-footer, .btn, form { display: none !important; }
+  .app-card { box-shadow: none; border: 1px solid #ddd; }
+}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Flashcards - {{ note.title }}{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 fw-bold mb-1">{{ note.title }}</h1>
+    <span class="badge text-bg-primary">{{ cards|length }} flashcards</span>
+    <span class="badge text-bg-secondary">{{ note.generator_mode|upper }} mode</span>
+  </div>
+  <div class="d-flex flex-wrap gap-2">
+    <a href="{{ url_for('quiz', note_id=note.id) }}" class="btn btn-success">
+      <i class="bi bi-play-circle me-2"></i>Start Quiz
+    </a>
+    <a href="{{ url_for('download_flashcards', note_id=note.id, format='txt') }}" class="btn btn-outline-primary">
+      <i class="bi bi-download me-2"></i>TXT
+    </a>
+    <a href="{{ url_for('download_flashcards', note_id=note.id, format='json') }}" class="btn btn-outline-primary">
+      <i class="bi bi-filetype-json me-2"></i>JSON
+    </a>
+    <a href="{{ url_for('note_details', note_id=note.id) }}" class="btn btn-outline-secondary">
+      <i class="bi bi-file-text me-2"></i>Notes
+    </a>
+  </div>
+</div>
+
+{% if cards %}
+<div class="flashcard-stage">
+  <div class="flashcard" id="flashcard">
+    <div class="flashcard-inner">
+      <div class="flashcard-face flashcard-front">
+        <small class="text-uppercase text-muted">Front</small>
+        <h2 id="cardFront" class="fw-bold"></h2>
+        <p class="text-muted mt-3">Click the card to reveal the answer.</p>
+      </div>
+      <div class="flashcard-face flashcard-back">
+        <small class="text-uppercase text-muted">Back</small>
+        <p id="cardBack" class="fs-5"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex flex-wrap justify-content-center align-items-center gap-2 mt-4">
+  <button class="btn btn-outline-primary" id="prevCard"><i class="bi bi-arrow-left"></i> Previous</button>
+  <button class="btn btn-primary" id="flipCard"><i class="bi bi-arrow-repeat"></i> Flip Card</button>
+  <button class="btn btn-outline-primary" id="nextCard">Next <i class="bi bi-arrow-right"></i></button>
+  <button class="btn btn-outline-warning" id="shuffleCards"><i class="bi bi-shuffle"></i> Shuffle</button>
+  <button class="btn btn-outline-danger" id="regenerateCards">
+    <i class="bi bi-arrow-clockwise"></i> Regenerate
+  </button>
+</div>
+<p class="text-center text-muted mt-3">Card <span id="cardCounter">1</span> of <span id="cardTotal">{{ cards|length }}</span></p>
+
+<div class="card app-card mt-4 d-none" id="regeneratePanel">
+  <div class="card-body">
+    <h2 class="h5 fw-bold">Regenerate study material</h2>
+    <form method="POST" action="{{ url_for('regenerate', note_id=note.id) }}" class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label">Flashcards</label>
+        <select class="form-select" name="card_count">
+          {% for value in [5, 10, 15, 20] %}
+            <option value="{{ value }}" {% if value == 10 %}selected{% endif %}>{{ value }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Quiz questions</label>
+        <select class="form-select" name="question_count">
+          {% for value in [5, 10, 15, 20] %}
+            <option value="{{ value }}" {% if value == 10 %}selected{% endif %}>{{ value }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Difficulty</label>
+        <select class="form-select" name="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Mode</label>
+        <select class="form-select" name="mode">
+          <option value="local" selected>Local / Offline NLP</option>
+          <option value="ai">AI Mode</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-danger">
+          <i class="bi bi-arrow-clockwise me-2"></i>Regenerate Now
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card app-card mt-4">
+  <div class="card-body">
+    <h2 class="h5 fw-bold">All flashcards</h2>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead><tr><th>#</th><th>Front</th><th>Back</th></tr></thead>
+        <tbody>
+          {% for card in cards %}
+            <tr><td>{{ loop.index }}</td><td>{{ card.front }}</td><td>{{ card.back }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="alert alert-warning">No flashcards are available. Please generate study material again.</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if cards %}
+<script id="flashcardData" type="application/json">{{ cards|map(attribute='front')|list|tojson }}__SPLIT__{{ cards|map(attribute='back')|list|tojson }}</script>
+{% endif %}
+{% endblock %}

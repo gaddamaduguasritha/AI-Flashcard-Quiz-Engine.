@@ -1,0 +1,17 @@
+Artificial Intelligence Notes
+
+Artificial Intelligence is the branch of computer science that focuses on creating systems capable of performing tasks that normally require human intelligence. These tasks include learning, reasoning, problem solving, perception, and language understanding. Artificial Intelligence is widely used in search engines, recommendation systems, virtual assistants, medical diagnosis, and autonomous vehicles.
+
+Machine Learning is a subset of Artificial Intelligence that enables computers to learn from data without being explicitly programmed for every situation. A machine learning system improves its performance as it receives more training data. Supervised learning uses labelled data, unsupervised learning finds hidden patterns in unlabelled data, and reinforcement learning learns through rewards and penalties.
+
+A neural network is a computing system inspired by the structure of the human brain. It contains layers of interconnected nodes called neurons. Each connection has a weight that is adjusted during training. Deep learning is a type of machine learning that uses neural networks with many hidden layers to learn complex patterns from large datasets.
+
+Natural Language Processing is a field of Artificial Intelligence that helps computers understand, interpret, and generate human language. Natural Language Processing is used in machine translation, chatbots, sentiment analysis, speech recognition, and text summarization. Tokenization is the process of breaking text into smaller units such as words or sentences.
+
+Computer Vision is the field of Artificial Intelligence that enables computers to interpret visual information from images and videos. It is used in face recognition, object detection, medical imaging, self-driving cars, and quality inspection in factories. Image classification assigns a label to an entire image, while object detection identifies the location of objects within an image.
+
+An algorithm is a step-by-step procedure used to solve a problem or complete a task. In Artificial Intelligence, algorithms process input data, identify patterns, and produce predictions or decisions. The quality of an AI system depends heavily on the quality and quantity of its training data.
+
+Overfitting is a problem in machine learning where a model learns the training data too well and performs poorly on new data. Underfitting occurs when a model is too simple to capture important patterns in the data. Data preprocessing is the process of cleaning, transforming, and organizing raw data before it is used to train a model.
+
+Ethics in Artificial Intelligence refers to the responsible design and use of intelligent systems. Important concerns include privacy, bias, fairness, transparency, accountability, and job displacement. Explainable AI is an approach that helps humans understand how an AI system reached a particular decision.
